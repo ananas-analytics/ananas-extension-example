@@ -4,6 +4,8 @@
 # Ignore Gradle build output directory
 build
 
+.gradletasknamecache
+
 .idea
 
 derby.log
@@ -11,3 +13,4 @@ derby.log
 .DS_Store
 
 *.swp
+
