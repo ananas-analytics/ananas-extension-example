@@ -62,27 +62,36 @@ jar {
     }
 }
 
-task copyJar(type: Copy) {
+task copyLib(type: Copy) {
     dependsOn jar
-    outputs.dir "target/libs"
+    outputs.dir "$buildDir/dist/lib"
 
     from "$buildDir/libs"
     include "*.jar"
-    into "target/libs"
+    into "$buildDir/dist/lib"
 }
 
 task copyMetadata(type: Copy) {
     dependsOn jar
-    outputs.dir "target"
+    outputs.dir "$buildDir/dist"
 
     from "metadata.yml"
-    into "target"
+    into "$buildDir/dist"
+}
+
+task copyEditor(type: Copy) {
+    dependsOn jar
+    outputs.dir "$buildDir/dist/editor"
+
+    from "editor"
+    include "*.yml"
+    into "$buildDir/dist/editor"
 }
 
 task dist {
-    dependsOn copyJar
+    dependsOn copyLib
     dependsOn copyMetadata
-
+    dependsOn copyEditor
 }
 
 test {

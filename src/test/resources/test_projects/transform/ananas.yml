@@ -1,13 +1,13 @@
 dag:
   connections:
-    - source: 5d409da52c03930c36c3fdb9
-      target: 5d4557439c7a5441fdc67d3b
-    - source: 5d4557439c7a5441fdc67d3b
-      target: 5d4559249c7a5441fdc67d47
-id: 5d31c70384b5674b6a220288
+    - source: web_api_source
+      target: sql_transform
+    - source: sql_transform
+      target: number_view
+id: unique_project_id_in_workspace
 name: bitcoin
 steps:
-  5d409da52c03930c36c3fdb9:
+  web_api_source:
     config:
       body: ""
       forceAutoDetectSchema: true
@@ -19,11 +19,11 @@ steps:
       subtype: api
       url: https://api.coindesk.com/v1/bpi/currentprice.json
     description: Connect data from an API
-    id: 5d409da52c03930c36c3fdb9
+    id: web_api_source
     metadataId: org.ananas.source.api
     name: BPI real-time data
     type: connector
-  5d4557439c7a5441fdc67d3b:
+  sql_transform:
     config:
       sql: |-
         SELECT
@@ -32,11 +32,11 @@ steps:
           `time.updatedISO` as `time`
         FROM PCOLLECTION
     description: Transform your data with SQL
-    id: 5d4557439c7a5441fdc67d3b
+    id: sql_transform
     metadataId: org.ananas.extension.example.transform.sql
     name: SQL
     type: transformer
-  5d4559249c7a5441fdc67d47:
+  number_view:
     config:
       color: "#417505"
       fields:
@@ -46,29 +46,13 @@ steps:
       subtype: big number
       title: Euro Rate
     description: Visualize a single number
-    id: 5d4559249c7a5441fdc67d47
+    id: number_view
     metadataId: org.ananas.visualization.bignumber
     name: Big Number
     type: viewer
-triggers: []
 variables:
-  - name: MYSQL_HOST
+  - name: EXAMPLE_VAR
     description: ""
     scope: project
     type: string
-  - name: MYSQL_PASSWORD
-    description: ""
-    scope: project
-    type: string
-  - name: MYSQL_DB
-    description: ""
-    scope: project
-    type: string
-  - name: SPARK_MASTER_HOST
-    description: ""
-    scope: project
-    type: string
-  - name: FLINK_MASTER_HOST
-    description: ""
-    scope: project
-    type: string
+

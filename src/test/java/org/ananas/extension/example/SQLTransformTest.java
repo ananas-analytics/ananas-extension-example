@@ -36,7 +36,7 @@ public class SQLTransformTest extends AnanasExtensionTestBase {
                 new String[] {
                         "explore",
                         "-p", project.getPath(),
-                        "5d409da52c03930c36c3fdb9",
+                        "web_api_source",
                         "-n", "0", "--size", "5"
                 });
     }
@@ -53,7 +53,7 @@ public class SQLTransformTest extends AnanasExtensionTestBase {
                         Assert.assertEquals(200, code);
 
                         List<Map<String, String>> fields =
-                                JsonPath.read(json, "$.data.5d4557439c7a5441fdc67d3b.schema.fields");
+                                JsonPath.read(json, "$.data.sql_transform.schema.fields");
                         Assert.assertTrue(fields.size() > 0);
 
                         Assert.assertEquals("code", fields.get(0).get("name"));
@@ -75,7 +75,7 @@ public class SQLTransformTest extends AnanasExtensionTestBase {
                         "test",
                         "-p", project.getPath(), // the ananas project to test with
                         "-x", ".",      // add current extension
-                        "5d4557439c7a5441fdc67d3b", // the step to test
+                        "sql_transform", // the step to test
                 });
     }
 
@@ -83,7 +83,7 @@ public class SQLTransformTest extends AnanasExtensionTestBase {
     public void testRun() {
         exit.expectSystemExitWithStatus(0);
 
-        String stepId = "5d4559249c7a5441fdc67d47";
+        String stepId = "number_view";
         exit.checkAssertionAfterwards(
                 new Assertion() {
                     public void checkAssertion() {
