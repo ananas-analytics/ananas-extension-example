@@ -47,6 +47,7 @@ dependencies {
 
 mainClassName = 'org.ananas.cli.Main'
 
+// run ananas command with the extension
 [run].each { runTask ->
     configure(runTask) {
         systemProperties System.properties
@@ -54,6 +55,14 @@ mainClassName = 'org.ananas.cli.Main'
             args project.args.split(' ')
         }
     }
+}
+
+// start ananas server with the extension
+task start(type: JavaExec) {
+    dependsOn classes
+    main = mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    args 'start', '-p', '7575', '-x', '.'
 }
 
 jar {
@@ -79,6 +88,14 @@ task copyMetadata(type: Copy) {
     into "$buildDir/dist"
 }
 
+task copyDescriptor(type: Copy) {
+    dependsOn jar
+    outputs.dir "$buildDir/dist"
+
+    from "extension.yml"
+    into "$buildDir/dist"
+}
+
 task copyEditor(type: Copy) {
     dependsOn jar
     outputs.dir "$buildDir/dist/editor"
@@ -88,10 +105,15 @@ task copyEditor(type: Copy) {
     into "$buildDir/dist/editor"
 }
 
-task dist {
+task dist(type: Zip) {
     dependsOn copyLib
     dependsOn copyMetadata
+    dependsOn copyDescriptor
     dependsOn copyEditor
+
+    archiveFileName = "${project.name}.zip"
+    destinationDirectory = file("$buildDir/distArchive")
+    from "$buildDir/dist"
 }
 
 test {

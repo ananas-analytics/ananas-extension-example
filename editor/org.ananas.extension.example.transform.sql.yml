@@ -1,5 +1,5 @@
 ---
-id: org.ananas.transform.sql
+id: org.ananas.extension.example.transform.sql
 layout:
   key: root
   props:

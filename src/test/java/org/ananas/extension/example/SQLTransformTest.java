@@ -36,6 +36,7 @@ public class SQLTransformTest extends AnanasExtensionTestBase {
                 new String[] {
                         "explore",
                         "-p", project.getPath(),
+                        "-x", ".",
                         "web_api_source",
                         "-n", "0", "--size", "5"
                 });

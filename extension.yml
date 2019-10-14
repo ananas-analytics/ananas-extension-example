@@ -1,0 +1,4 @@
+name: ananas-extension-example
+version: 0.1.0
+author: ananas
+minAnanasVersion: 0.10.0
