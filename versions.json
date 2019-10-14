@@ -1,0 +1,11 @@
+{
+  "name": "ananas-extension-example",
+  "versions": [
+    {
+      "version": "0.1.0",
+      "url": "https://github.com/ananas-analytics/ananas-extension-example/releases/download/v0.1.0/ananas-extension-example-0.1.0.zip",
+      "sha1": "9d243715ded414dd120de3a2d688587a6940dbe6",
+      "minAnanasVersion": "0.10.0"
+    }
+  ]
+}
