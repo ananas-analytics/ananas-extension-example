@@ -12,6 +12,8 @@ plugins {
     id 'application'
 }
 
+version = "0.1.0"
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -111,7 +113,7 @@ task dist(type: Zip) {
     dependsOn copyDescriptor
     dependsOn copyEditor
 
-    archiveFileName = "${project.name}.zip"
+    archiveFileName = "${project.name}-${project.version}.zip"
     destinationDirectory = file("$buildDir/distArchive")
     from "$buildDir/dist"
 }
