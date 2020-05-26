@@ -1,3 +1,14 @@
 org.ananas.extension.example.transform.sql:
   id: org.ananas.extension.example.transform.sql
   type: Transform
+  name: SQL Transform
+  description: Transform your data with SQL
+  icon: ${resource}/sql.svg
+  step:
+    type: transformer
+    config:
+      sql: "SELECT * FROM PCOLLECTION"
+  options:
+    maxIncoming: 1
+    maxOutgoing: -1
+

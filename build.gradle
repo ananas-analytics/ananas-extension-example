@@ -64,7 +64,7 @@ task start(type: JavaExec) {
     dependsOn classes
     main = mainClassName
     classpath = sourceSets.main.runtimeClasspath
-    args 'start', '-p', '7575', '-x', '.'
+    args 'start', '-p', '3003', '-x', '.'
 }
 
 jar {
@@ -107,11 +107,20 @@ task copyEditor(type: Copy) {
     into "$buildDir/dist/editor"
 }
 
+task copyResource(type: Copy) {
+    dependsOn jar
+    outputs.dir "$buildDir/dist/resource"
+
+    from "resource"
+    into "$buildDir/dist/resource"
+}
+
 task dist(type: Zip) {
     dependsOn copyLib
     dependsOn copyMetadata
     dependsOn copyDescriptor
     dependsOn copyEditor
+    dependsOn copyResource
 
     archiveFileName = "${project.name}-${project.version}.zip"
     destinationDirectory = file("$buildDir/distArchive")
@@ -119,7 +128,7 @@ task dist(type: Zip) {
 }
 
 test {
-    //we want to display the following test events
+    // we want to display the following test events
     testLogging {
         // events "PASSED", "STARTED", "FAILED", "mKIPPED"
         showStandardStreams = true
